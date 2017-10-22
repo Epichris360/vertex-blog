@@ -7,7 +7,7 @@ const turbo = require('turbo360')({site_id:pkg_json.app})
 	Data is rendered using the Mustache templating engine. For more
 	information, view here: https://mustache.github.io/#demo */
 router.get('/', function(req, res){
-	turbo.fetch('blogs', null)
+	turbo.fetch('post', null)
 	.then(data => {
 		res.render('blogsList',{ blogs: data })
 	})
@@ -21,19 +21,21 @@ router.get('/blog-new', (req, res) => {
 })
 
 router.post('/blog-new', (req, res) => {
-	const blog = { title:req.body.title, text:req.body.text }
-	turbo.create('blogs',blog)
+	const blog = { 
+		title:req.body.title, 
+		text:req.body.text, 
+		link: req.body.title.split(" ").join("-")
+	}
+	turbo.create('post',blog)
 	.then(data => {
 		res.redirect('/')	
 	})
 })
 
-router.get('/blog/:id', (req, res) => {
-	turbo.fetch('blogs',null)
+router.get('/blog/:link', (req, res) => {
+	turbo.fetch('post',{ link: req.params.link })
 	.then(data => {
-		let blog = data.map( b => {
-			return b.id == req.params.id ? b : null
-		})[0]
+		let blog = data[0]
 		blog.text = blog.text.replace(/\n/g, '<br />')
 		res.render( 'blogShow',{ blog:blog } )
 	})
