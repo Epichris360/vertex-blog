@@ -68,7 +68,21 @@ router.post('/blog/:link/edit', (req, res) => {
 			res.redirect(`/blog/${blog.link}`)
 		})	
 	})
-	.catch(err => { console.log('err err err err',err.message) })	
+	.catch(err => { console.log('err',err.message) })	
+})
+
+router.get('/blog/:link/delete', (req, res) => {
+	turbo.fetch('post',{ link: req.params.link })
+	.then(data => {
+		return data[0]
+	})
+	.then(blog => {
+		turbo.remove('post',blog)
+		.then(data => {
+			res.redirect('/')
+		})
+	})
+	.catch(err => { console.log('err',err.message) })
 })
 
 

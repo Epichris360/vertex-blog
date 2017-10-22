@@ -1,8 +1,14 @@
 {{>Top}}
+
     <h1>{{blog.title}}</h1>
     <hr>
     <p>
         {{{blog.text}}}
     </p>
     <a href="/blog/{{blog.link}}/edit" class="btn btn-warning">Edit!</a>
+    <a href="/blog/{{blog.link}}/delete" 
+        class="btn btn-danger" id="delete"
+        onclick="return confirm('Please click on OK if you want to delete this post!');"
+    >Delete!</a>
+    
 {{>Bottom}}
