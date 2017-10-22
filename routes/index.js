@@ -44,6 +44,32 @@ router.get('/blog/:link', (req, res) => {
 	})	
 })
 
+router.get('/blog/:link/edit', (req, res) => {
+	turbo.fetch('post',{ link: req.params.link })
+	.then(data => {
+		let blog = data[0]
+		res.render( 'blogEdit',{ blog:blog } )
+	})
+	.catch(err => {
+		console.log('err',err.message)
+	})	
+})
+
+router.post('/blog/:link/edit', (req, res) => {
+	let blog = { title:req.body.title, text:req.body.text,  link: req.body.title.split(" ").join("-") }
+	turbo.fetch('post',{ link: req.params.link })
+	.then(data => {
+		return data[0]
+	})
+	.then(blogOrig=> {
+		turbo.update('post', blogOrig, blog)
+		.then(data => {
+			console.log('data',data)
+			res.redirect(`/blog/${blog.link}`)
+		})	
+	})
+	.catch(err => { console.log('err err err err',err.message) })	
+})
 
 
 

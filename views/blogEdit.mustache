@@ -1,0 +1,20 @@
+{{> Top}}
+    
+    <h1>New Blog Post!</h1>
+    <hr>
+    <form action="/blog/{{blog.link}}/edit" method="post">
+        <input type="text" class="form-control" 
+            name="title" placeholder="Name for your blog post" 
+            value="{{blog.title}}" required
+        >
+        <br>
+        <textarea name="text" 
+            class="form-control" placeholder="Remember the Post!" 
+            cols="30" rows="10" required
+        >
+            {{blog.text}}
+        </textarea>
+        <br>
+        <input type="submit" name="Update!" value="Update!" class="btn btn-success btn-lg">
+    </form>
+{{> Bottom}}
