@@ -1,0 +1,15 @@
+{{> Top}}
+    
+    <h1>New Blog Post!</h1>
+    <hr>
+    <form action="/blog-new" method="post">
+        <input type="text" class="form-control" name="title" placeholder="Name for your blog post" required>
+        <br>
+        <textarea name="text" 
+            class="form-control" placeholder="Remember the Post!" 
+            cols="30" rows="10" required
+        ></textarea>
+        <br>
+        <input type="submit" name="sumbit!" value="submit!" class="btn btn-success btn-lg">
+    </form>
+{{> Bottom}}
